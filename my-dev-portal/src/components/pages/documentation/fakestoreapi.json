@@ -1,0 +1,404 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "APIP - API Manager",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "Products",
+      "x-displayName": "🛒 Products"
+    },
+    {
+      "name": "Carts",
+      "x-displayName": "🛍️ Carts"
+    },
+    {
+      "name": "Users",
+      "x-displayName": "👤 Users"
+    },
+    {
+      "name": "Auth",
+      "x-displayName": "🔒 Auth"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://8mfv0c41x9.execute-api.ap-southeast-3.amazonaws.com/v1/service1"
+    }
+  ],
+  "paths": {
+    "/products": {
+      "get": {
+        "summary": "Get all products",
+        "description": "Retrieve a list of all available products.",
+        "operationId": "getAllProducts",
+        "tags": ["Products"],
+        "x-code-samples": [
+          {
+            "lang": "javascript",
+            "label": "JavaScript (Browser)",
+            "source": "fetch('https://fakestoreapi.com/products')\n  .then(response => response.json())\n  .then(data => console.log(data));"
+          },
+          {
+            "lang": "nodejs",
+            "label": "Node.js (Axios)",
+            "source": "const axios = require('axios');\naxios.get('https://fakestoreapi.com/products')\n  .then(response => console.log(response.data));"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "<?php\n  $response = file_get_contents('https://fakestoreapi.com/products');\n  echo $response;\n?>"
+          },
+          {
+            "lang": "curl",
+            "label": "cURL",
+            "source": "curl -X GET 'https://fakestoreapi.com/products'"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "import requests\nresponse = requests.get('https://fakestoreapi.com/products')\nprint(response.json())"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new product",
+        "description": "Create a new product.",
+        "operationId": "addProduct",
+        "tags": ["Products"],
+        "x-code-samples": [
+          {
+            "lang": "javascript",
+            "label": "JavaScript (Browser)",
+            "source": "const product = { title: 'New Product', price: 29.99 };\nfetch('https://fakestoreapi.com/products', {\n  method: 'POST',\n  headers: { 'Content-Type': 'application/json' },\n  body: JSON.stringify(product)\n})\n  .then(response => response.json())\n  .then(data => console.log(data));"
+          },
+          {
+            "lang": "nodejs",
+            "label": "Node.js (Axios)",
+            "source": "const axios = require('axios');\nconst product = { title: 'New Product', price: 29.99 };\naxios.post('https://fakestoreapi.com/products', product)\n  .then(response => console.log(response.data));"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "<?php\n  $product = json_encode(['title' => 'New Product', 'price' => 29.99]);\n  $ch = curl_init('https://fakestoreapi.com/products');\n  curl_setopt($ch, CURLOPT_POST, 1);\n  curl_setopt($ch, CURLOPT_POSTFIELDS, $product);\n  curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);\n  $response = curl_exec($ch);\n  curl_close($ch);\n  echo $response;\n?>"
+          },
+          {
+            "lang": "curl",
+            "label": "cURL",
+            "source": "curl -X POST 'https://fakestoreapi.com/products' -H 'Content-Type: application/json' -d '{\"title\": \"New Product\", \"price\": 29.99}'"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "import requests\nproduct = {'title': 'New Product', 'price': 29.99}\nresponse = requests.post('https://fakestoreapi.com/products', json=product)\nprint(response.json())"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Product created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "summary": "Get a single product",
+        "description": "Retrieve details of a specific product by ID.",
+        "operationId": "getProductById",
+        "tags": ["Products"],
+        "x-code-samples": [
+          {
+            "lang": "javascript",
+            "label": "JavaScript (Browser)",
+            "source": "fetch('https://fakestoreapi.com/products/1')\n  .then(response => response.json())\n  .then(data => console.log(data));"
+          },
+          {
+            "lang": "nodejs",
+            "label": "Node.js (Axios)",
+            "source": "const axios = require('axios');\naxios.get('https://fakestoreapi.com/products/1')\n  .then(response => console.log(response.data));"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "<?php\n  $response = file_get_contents('https://fakestoreapi.com/products/1');\n  echo $response;\n?>"
+          },
+          {
+            "lang": "curl",
+            "label": "cURL",
+            "source": "curl -X GET 'https://fakestoreapi.com/products/1'"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "import requests\nresponse = requests.get('https://fakestoreapi.com/products/1')\nprint(response.json())"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a product",
+        "description": "Update an existing product by ID.",
+        "operationId": "updateProduct",
+        "tags": ["Products"],
+        "x-code-samples": [
+          {
+            "lang": "javascript",
+            "label": "JavaScript (Browser)",
+            "source": "const product = { title: 'Updated Product', price: 39.99 };\nfetch('https://fakestoreapi.com/products/1', {\n  method: 'PUT',\n  headers: { 'Content-Type': 'application/json' },\n  body: JSON.stringify(product)\n})\n  .then(response => response.json())\n  .then(data => console.log(data));"
+          },
+          {
+            "lang": "nodejs",
+            "label": "Node.js (Axios)",
+            "source": "const axios = require('axios');\nconst product = { title: 'Updated Product', price: 39.99 };\naxios.put('https://fakestoreapi.com/products/1', product)\n  .then(response => console.log(response.data));"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "<?php\n  $product = json_encode(['title' => 'Updated Product', 'price' => 39.99]);\n  $ch = curl_init('https://fakestoreapi.com/products/1');\n  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');\n  curl_setopt($ch, CURLOPT_POSTFIELDS, $product);\n  curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);\n  $response = curl_exec($ch);\n  curl_close($ch);\n  echo $response;\n?>"
+          },
+          {
+            "lang": "curl",
+            "label": "cURL",
+            "source": "curl -X PUT 'https://fakestoreapi.com/products/1' -H 'Content-Type: application/json' -d '{\"title\": \"Updated Product\", \"price\": 39.99}'"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "import requests\nproduct = {'title': 'Updated Product', 'price': 39.99}\nresponse = requests.put('https://fakestoreapi.com/products/1', json=product)\nprint(response.json())"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Product updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a product",
+        "description": "Delete a specific product by ID.",
+        "operationId": "deleteProduct",
+        "tags": ["Products"],
+        "x-code-samples": [
+          {
+            "lang": "javascript",
+            "label": "JavaScript (Browser)",
+            "source": "fetch('https://fakestoreapi.com/products/1', {\n  method: 'DELETE'\n})\n  .then(response => response.json())\n  .then(data => console.log(data));"
+          },
+          {
+            "lang": "nodejs",
+            "label": "Node.js (Axios)",
+            "source": "const axios = require('axios');\naxios.delete('https://fakestoreapi.com/products/1')\n  .then(response => console.log(response.data));"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "<?php\n  $ch = curl_init('https://fakestoreapi.com/products/1');\n  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');\n  $response = curl_exec($ch);\n  curl_close($ch);\n  echo $response;\n?>"
+          },
+          {
+            "lang": "curl",
+            "label": "cURL",
+            "source": "curl -X DELETE 'https://fakestoreapi.com/products/1'"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "import requests\nresponse = requests.delete('https://fakestoreapi.com/products/1')\nprint(response.json())"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product deleted successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Product": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "float"
+          },
+          "description": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "Cart": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Product"
+            }
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "Login": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

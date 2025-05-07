@@ -1,37 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import Modal from "react-modal";
 import SVG from "react-inlinesvg";
 import copy from "copy-to-clipboard";
 
 import { PageLayout } from "../../page-layout";
 import { PageLoader } from "../../page-loader";
-import copyIcon from "../../../images/icons/copy.svg";
-import successIcon from "../../../images/icons/success.svg";
-import apiKeyIcon from "../../../images/icons/api-key.svg";
 import useAuthCombined from "../../../hooks/useAuthCombined";
+import { RedocStandalone } from "redoc";
+// import data from "./fakestoreapi.yaml";
+import SwaggerUI from "swagger-ui-react";
+import "swagger-ui-react/swagger-ui.css";
 
 const Keys = () => {
-  const { user, isLoading, userEmail, idToken } = useAuthCombined();
-
-  const [APIKey, setAPIKey] = useState("");
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [isCopied, setIsCopied] = useState(false);
-
-  let resolvedEmail = user?.email || userEmail;
-
-  Modal.setAppElement("#root");
-
-  function openModal() {
-    setIsOpen(true);
+  async function test(params) {
+    const response = await fetch("https://8mfv0c41x9.execute-api.ap-southeast-3.amazonaws.com/v1/service1/products", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.text();
+    console.log(data);
   }
-
-  if (isLoading) {
-    return <PageLoader />;
-  }
-
+  useEffect(() => {
+    test();
+  }, []);
   return (
-    <PageLayout>
-      <p>this is documentation page</p>
+    <PageLayout compact>
+      <div
+        style={{
+          width: "100vw",
+          maxWidth: "unset",
+        }}
+      >
+        {/* <SwaggerUI url={"/data/fakestoreapi.yaml"} /> */}
+      </div>
     </PageLayout>
   );
 };
