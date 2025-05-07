@@ -10,7 +10,7 @@
 }
 
 .page-layout--home {
-  background-image: url('../../../images/assets/dev-portal-hero-bg@2x.png');
+  background-image: url("../../../images/assets/dev-portal-hero-bg@2x.png");
   background-repeat: no-repeat;
 }
 
@@ -30,7 +30,7 @@
   white-space: pre-wrap;
 
   a {
-    color: white;
+    color: var(--orange);
   }
 
   a:hover {
@@ -39,7 +39,6 @@
     text-decoration-thickness: 1%;
     text-underline-offset: 4px;
   }
-
 }
 
 .page-layout__content > * {

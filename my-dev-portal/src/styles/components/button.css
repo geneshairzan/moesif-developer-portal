@@ -102,8 +102,8 @@ button {
 }
 
 .button__purp {
-  background: var(--white);
-  color: var(--black);
+  background: var(--orange);
+  color: var(--white);
   width: 100%;
   border: unset;
 }
@@ -187,5 +187,5 @@ button {
 }
 
 .button__price-action:hover {
-  background: rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.1);
 }

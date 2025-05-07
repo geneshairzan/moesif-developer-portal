@@ -8,7 +8,7 @@ import { PageLoader } from "../../page-loader";
 import copyIcon from "../../../images/icons/copy.svg";
 import successIcon from "../../../images/icons/success.svg";
 import apiKeyIcon from "../../../images/icons/api-key.svg";
-import useAuthCombined from '../../../hooks/useAuthCombined';
+import useAuthCombined from "../../../hooks/useAuthCombined";
 
 const customStyles = {
   content: {
@@ -22,17 +22,11 @@ const customStyles = {
 };
 
 const Keys = () => {
-  const {
-    user,
-    isLoading,
-    userEmail,
-    idToken,
-  } = useAuthCombined();
+  const { user, isLoading, userEmail, idToken } = useAuthCombined();
 
   const [APIKey, setAPIKey] = useState("");
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
-
 
   let resolvedEmail = user?.email || userEmail;
 
@@ -61,11 +55,7 @@ const Keys = () => {
         openModal(setIsOpen);
       })
       .catch((error) => {
-        setAPIKey(
-          `Error creating key: ${
-            error.response?.body?.message || error.toString()
-          }`
-        );
+        setAPIKey(`Error creating key: ${error.response?.body?.message || error.toString()}`);
         openModal(setIsOpen);
       });
   }
@@ -86,19 +76,14 @@ const Keys = () => {
     <PageLayout>
       <div className="keys-description">
         <h1>My API Keys</h1>
-        <p className="description">
-          On this page, you can generate an API key to access{"\n"}the APIs
-          you're subscribed to.
-        </p>
+        <p className="description">On this page, you can generate an API key to access{"\n"}the APIs you're subscribed to.</p>
         <div>
-          <p>
-            To create an API key, you must be subscribed to an API plan first.
-          </p>
+          <p>To create an API key, you must be subscribed to an API plan first.</p>
         </div>
         <div className="page-action">
-        <button className="button__purp" onClick={createKey}>
-          Create Key
-        </button>
+          <button className="button__purp" onClick={createKey}>
+            Create Key
+          </button>
         </div>
         <p>
           <strong>Note: </strong>
@@ -107,12 +92,7 @@ const Keys = () => {
         </p>
       </div>
 
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="API Key"
-      >
+      <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel="API Key">
         <h3 className="modal-title">Get API Key</h3>
         <div className="modal-body">
           <label>Your API Credentials</label>
@@ -131,31 +111,18 @@ const Keys = () => {
                 }
               }}
             >
-              <SVG
-                className="icon"
-                style={{ width: "15px", height: "13.5px" }}
-                fill="currentcolor"
-                src={isCopied ? successIcon : copyIcon}
-              />
+              <SVG className="icon" style={{ width: "15px", height: "13.5px" }} fill="currentcolor" src={isCopied ? successIcon : copyIcon} />
             </button>
           </div>
           {APIKey?.includes("Error") && (
             <div style={{ color: "black", fontWeight: 300, maxWidth: 600 }}>
               <h6>Trouble shooting API Key Generation Error</h6>
               <ul>
+                <li>If using pre-supported API Gateway, did you set up already and configured it?</li>
+                <li>If using custom API gateway, did you implement the code for generating key?</li>
                 <li>
-                  If using pre-supported API Gateway, did you set up already and
-                  configured it?
-                </li>
-                <li>
-                  If using custom API gateway, did you implement the code for
-                  generating key?
-                </li>
-                <li>
-                  Did you already purchase a plan? In default implementation,
-                  API Gateway provisioning is triggered upon successful checkout
-                  call back from Stripe. See API route{" "}
-                  <code>/register/stripe/:checkout_session_id</code>.
+                  Did you already purchase a plan? In default implementation, API Gateway provisioning is triggered upon successful checkout call back from
+                  Stripe. See API route <code>/register/stripe/:checkout_session_id</code>.
                 </li>
                 <li>If provision was triggered, was provisioning successful?</li>
               </ul>
@@ -163,10 +130,7 @@ const Keys = () => {
           )}
         </div>
         <div className="modal-footer">
-          <button
-            className="button button--outline-secondary"
-            onClick={closeModal}
-          >
+          <button className="button button--outline-secondary" onClick={closeModal}>
             Close
           </button>
         </div>

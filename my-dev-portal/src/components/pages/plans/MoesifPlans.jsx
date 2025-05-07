@@ -18,20 +18,13 @@ function MoesifPlans(props) {
     if (options?.disable) {
       return (
         <button disabled className="button__price-action">
-          Sign Up{" "}
-          <span style={{ fontSize: "x-small", fontWeight: "300" }}>
-            example
-          </span>
+          Sign Up <span style={{ fontSize: "x-small", fontWeight: "300" }}>example</span>
         </button>
       );
     }
     if (isAuthenticated) {
       return (
-        <Link
-          to={`/checkout?price_id_to_purchase=${encodeURIComponent(
-            price.id
-          )}&plan_id_to_purchase=${encodeURIComponent(plan?.id)}`}
-        >
+        <Link to={`/checkout?price_id_to_purchase=${encodeURIComponent(price.id)}&plan_id_to_purchase=${encodeURIComponent(plan?.id)}`}>
           <button className="button__price-action">Select</button>
         </Link>
       );
@@ -50,11 +43,7 @@ function MoesifPlans(props) {
         <h3 className="plans-title">API Products and Plans</h3>
         <div className="plans-hint">
           <div>
-            Developers: See README.md file in{" "}
-            <a href="https://github.com/Moesif/moesif-developer-portal">
-              this repo
-            </a>{" "}
-            for setup instructions
+            Developers: See README.md file in <a href="https://github.com/Moesif/moesif-developer-portal">this repo</a> for setup instructions
           </div>
           <div>
             Or, jump to <Link to={"/setup"}>setup</Link> page to get started
@@ -68,14 +57,7 @@ function MoesifPlans(props) {
           plans
             .filter((plan) => plan.status === "active")
             .map((plan) =>
-              plan?.prices?.map((price) => (
-                <PriceTile
-                  key={`${plan.id}${price.id}`}
-                  plan={plan}
-                  price={price}
-                  actionButton={getActionButton(price, plan)}
-                />
-              ))
+              plan?.prices?.map((price) => <PriceTile key={`${plan.id}${price.id}`} plan={plan} price={price} actionButton={getActionButton(price, plan)} />)
             )
             .flat()}
       </div>
@@ -94,12 +76,7 @@ function MoesifPlans(props) {
           {examplePlansFromStripe.hits
             .map((plan) =>
               plan?.prices?.map((price) => (
-                <PriceTile
-                  key={`${plan.id}${price.id}`}
-                  plan={plan}
-                  price={price}
-                  actionButton={getActionButton(price, plan, { disable: true })}
-                />
+                <PriceTile key={`${plan.id}${price.id}`} plan={plan} price={price} actionButton={getActionButton(price, plan, { disable: true })} />
               ))
             )
             .flat()}

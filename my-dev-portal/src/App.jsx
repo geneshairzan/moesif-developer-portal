@@ -7,6 +7,7 @@ import Settings from "./components/pages/settings/Settings";
 import { OktaProviderWithNavigate } from "./OktaProviderWithNavigate";
 import { Auth0ProviderWithNavigate } from "./Auth0ProviderWithNavigate";
 import Keys from "./components/pages/keys/Keys";
+import Documentation from "./components/pages/documentation";
 import SecureRoute from "./components/okta/SecureRoute";
 import { AuthenticationGuard } from "./components/authentication-guard";
 import SignUp from "./components/pages/signup/SignUp";
@@ -35,10 +36,7 @@ function App() {
                 <Route path="/return" element={<Return />} />
                 <Route path="/setup" element={<Setup />} />
                 <Route path="/plans" element={<Plans />} />
-                <Route
-                  path="login/oktapostcreate"
-                  element={<RedirectToSignIn />}
-                />
+                <Route path="login/oktapostcreate" element={<RedirectToSignIn />} />
                 <Route
                   path="/checkout"
                   element={
@@ -101,43 +99,18 @@ function App() {
           <BrowserRouter>
             <Auth0ProviderWithNavigate>
               <Routes>
-                <Route
-                  path="/"
-                  element={
-                    !isAuthenticated ? (
-                      <Home />
-                    ) : (
-                      <Navigate replace to={"dashboard"} />
-                    )
-                  }
-                />
+                <Route path="/" element={!isAuthenticated ? <Home /> : <Navigate replace to={"dashboard"} />} />
                 <Route path="/return" element={<Return />} />
                 <Route path="/setup" element={<Setup />} />
                 <Route path="/plans" element={<Plans />} />
-                <Route
-                  path="/checkout"
-                  element={<AuthenticationGuard component={Checkout} />}
-                />
-                <Route
-                  path="/return"
-                  element={<AuthenticationGuard component={Return} />}
-                />
-                <Route
-                  path="dashboard"
-                  element={<AuthenticationGuard component={Dashboard} />}
-                />
-                <Route
-                  path="settings"
-                  element={<AuthenticationGuard component={Settings} />}
-                />
-                <Route
-                  path="keys"
-                  element={<AuthenticationGuard component={Keys} />}
-                />
-                <Route
-                  path="subscription"
-                  element={<AuthenticationGuard component={Subscription} />}
-                />
+                <Route path="/checkout" element={<AuthenticationGuard component={Checkout} />} />
+                <Route path="/return" element={<AuthenticationGuard component={Return} />} />
+                <Route path="dashboard" element={<AuthenticationGuard component={Dashboard} />} />
+                <Route path="settings" element={<AuthenticationGuard component={Settings} />} />
+                <Route path="keys" element={<AuthenticationGuard component={Keys} />} />
+                <Route path="documentation" element={<AuthenticationGuard component={Documentation} />} />
+
+                <Route path="subscription" element={<AuthenticationGuard component={Subscription} />} />
               </Routes>
             </Auth0ProviderWithNavigate>
           </BrowserRouter>
@@ -146,12 +119,7 @@ function App() {
       </div>
     );
   } else {
-    return (
-      <div className="App">
-        Please check your env files, the REACT_APP_AUTH_PROVIDER variable must
-        be provided.
-      </div>
-    );
+    return <div className="App">Please check your env files, the REACT_APP_AUTH_PROVIDER variable must be provided.</div>;
   }
 }
 
